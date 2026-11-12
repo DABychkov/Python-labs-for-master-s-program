@@ -1,0 +1,7 @@
+{
+  "lab-1": {
+    "assignment_id": "lab-1",
+    "title": "Lab 1",
+    "allowed_template": ["print(1)", "print(2)"]
+  }
+}
