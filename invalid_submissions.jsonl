@@ -1,0 +1,5 @@
+{bad json
+{"submission_id":"sub-3","assignment_id":"lab-1","student_id":"","submitted_at":"2026-11-12T12:00:00+03:00","text":"ok","code":"x","ai_declaration":{"used":false,"description":""}}
+{"submission_id":"sub-4","assignment_id":"lab-1","student_id":"s-4","submitted_at":"2026-11-12T12:00:00","text":"ok","code":"x","ai_declaration":{"used":false,"description":""}}
+{"submission_id":"sub-5","assignment_id":"lab-1","student_id":"s-5","submitted_at":"2026-11-12T12:00:00+03:00","text":"ok","code":"x","ai_declaration":{"used":true,"description":""}}
+{"submission_id":"sub-6","assignment_id":"lab-1","student_id":"s-6","submitted_at":"2026-11-12T12:00:00+03:00","text":"ok","code":"x","ai_declaration":{"used":false,"description":""},"extra":"value"}
