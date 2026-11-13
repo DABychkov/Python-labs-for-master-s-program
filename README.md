@@ -1,6 +1,6 @@
 # Система приёма лабораторных работ
 
-Этап А лабораторной работы 1, траектория Python Core.
+Этапы А и Б лабораторной работы 1, траектория Python Core.
 
 ## Что реализовано
 
@@ -10,6 +10,10 @@
 - явная валидация AI-декларации (`used=true` требует непустого `description`);
 - идемпотентный приём в памяти: дубликат (тот же id и тот же хеш) и конфликт (тот же id, другой хеш);
 - CLI `lab-import import <file.jsonl>`, который продолжает работу после битых строк.
+- синхронный контракт `Analyzer` и `AnalysisReport`;
+- `LengthAnalyzer` и `TemplateAnalyzer`;
+- JSONL- и in-memory-источники сдач;
+- явный реестр фабрик анализаторов и `AnalysisService`.
 
 ## Запуск
 
@@ -44,6 +48,16 @@ python -m pytest -v
 ## Структура
 
 - `models` — Submission, AiDeclaration;
+
+- `analysis` — Assignment, Evidence, AnalysisReport, Analyzer и AnalysisContext;
+
+- `analyzers` — LengthAnalyzer и TemplateAnalyzer;
+
+- `sources` — SubmissionSource, JsonlSubmissionSource, InMemorySubmissionSource и контекст заданий;
+
+- `registry` — AnalyzerRegistry и default_registry;
+
+- `analysis_service` — AnalysisService, выбирающий анализатор через реестр.
 
 - `errors` — IntakeIssue (code/field/message), IntakeError и потомки (ParseError, ValidationError, ConflictError);
 
@@ -127,4 +141,13 @@ E:\clean_test\venv\lib\site-packages\lab_system\__init__.py
 
 ## Тесты
 
-- `Покрыто:` валидный импорт, неизменность входа (deepcopy), timestamp без зоны, пустой student_id, неверный тип student_id, лишнее поле, битый JSON, дубликат, конфликт, продолжение импорта после битой строки, AI-декларация (5 случаев: не объект, лишнее поле, used не bool, description не строка, used=true без описания), ручная проверка: пакет устанавливается в чистое окружение
+```powershell
+python -m pytest -v
+```
+29 тестов (14 этап А + 15 этап Б)
+
+- `Покрыто:` 
+### Этап А
+валидный импорт, неизменность входа (deepcopy), timestamp без зоны, пустой student_id, неверный тип student_id, лишнее поле, битый JSON, дубликат, конфликт, продолжение импорта после битой строки, AI-декларация (5 случаев: не объект, лишнее поле, used не bool, description не строка, used=true без описания), ручная проверка: пакет устанавливается в чистое окружение
+### Этап Б
+analyzer_id + analyzer_version для Length и Template; LengthAnalyzer — score=None, similarity=None, rubric_feedback с числами, evidence с диапазоном; TemplateAnalyzer — similarity=1.0 + точная строка + «разрешённое», нет совпадений - 0.0, (), «не найдено»; реестр + AnalysisService без ветвления; оба источника дают тот же Submission; файл закрыт при early stop и при ошибке; номер строки в ошибке JSONL; unknown_assignment + field="assignment_id"; третий анализатор без правки AnalysisService; ошибка анализатора пробрасывается; реестр: неизвестный create - KeyError, дубликат register - ValueError.

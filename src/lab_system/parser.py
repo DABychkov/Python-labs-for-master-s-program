@@ -39,7 +39,6 @@ def parse_submission_line(line: str) -> Submission:
 
 
 def parse_submission(payload: dict[str, Any]) -> Submission:
-    """Validate an input mapping without mutating it."""
     unknown = sorted(set(payload) - _FIELDS)
     if unknown:
         raise ValidationError(

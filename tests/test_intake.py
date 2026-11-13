@@ -1,6 +1,4 @@
 import copy
-import json
-
 import pytest
 
 from lab_system.errors import ConflictError, ValidationError
